@@ -3,7 +3,7 @@
 module Api
   module V1
     class SpreadAlertsController < ApplicationController
-      before_action :set_spread_alert, only: %i[show update destroy]
+      before_action :set_spread_alert, only: %i[show update destroy check]
 
       def index
         @spread_alerts = SpreadAlert.all
@@ -37,6 +37,19 @@ module Api
         @spread_alert.destroy
 
         head :no_content
+      end
+
+      def check
+        alert_spread   = @spread_alert.spread.to_f
+        order_book     = Buda::Client.order_book(@spread_alert.market_id)
+        current_spread = Buda::CalculateSpreadService.call(order_book).to_f
+
+        render json: {
+          market_id: @spread_alert.market_id,
+          alert_spread:,
+          current_spread:,
+          message: @spread_alert.message(current_spread)
+        }
       end
 
       private

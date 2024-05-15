@@ -5,4 +5,11 @@ class SpreadAlert < ActiveRecord::Base
     validates :market_id, uniqueness: true
     validates :spread
   end
+
+  def message(current_spread)
+    return :greater if current_spread > spread
+    return :lower if current_spread < spread
+
+    :equal
+  end
 end
