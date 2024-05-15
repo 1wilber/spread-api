@@ -1,24 +1,18 @@
-# README
+# Spread Api
+## Endpoints
+Los endpoints no requieren autenticación.
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+### Spreads
+Endpoint para obtener todos los spreads
 
-Things you may want to cover:
+* [Ver spread de todos los mercados](./docs/spreads/index.md) : `GET /api/v1/spreads`
 
-* Ruby version
+### Spread Alerts
+Endpoint para obtener y manipular las alertas de los spread.
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+* [Ver todas las alertas](./docs/spread_alerts/index.md) : `GET /api/v1/spread_alerts`
+* [Ver una alerta](./docs/spread_alerts/show.md) : `GET /api/v1/spread_alerts/:market_id`
+* [Chequear estado de una alerta](./docs/spread_alerts/check.md) : `GET /api/v1/spread_alerts/:market_id/check` (polling)
+* [Crear una alerta](./docs/spread_alerts/create.md) : `POST /api/v1/spread_alerts`
+* [Actualizar una alerta](./docs/spread_alerts/update.md) : `PUT /api/v1/spread_alerts/:market_id`
+* [Eliminar una alerta](./docs/spread_alerts/destroy.md) : `DELETE /api/v1/spread_alerts/:market_id`
