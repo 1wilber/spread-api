@@ -6,13 +6,16 @@ module Api
       def index
         result = []
         market_ids = Buda::Client.markets.map(&:id)
-        market_ids.each do |market_id|
-          order_book = Buda::Client.order_book(market_id)
-          result << {
-            market_id:,
-            spread: ::Buda::CalculateSpreadService.call(order_book)
-          }
+        futures = market_ids.map do |market_id|
+          Concurrent::Future.execute do
+            order_book = Buda::Client.order_book(market_id)
+            {
+              market_id:,
+              spread: ::Buda::CalculateSpreadService.call(order_book)
+            }
+          end
         end
+        futures.each { |future| result << future.value }
 
         render json: { spreads: result }
       end
