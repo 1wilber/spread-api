@@ -6,6 +6,7 @@ ruby '3.2.2'
 gem 'rails', '~> 7.1.3', '>= 7.1.3.2'
 
 # Use the Puma web server [https://github.com/puma/puma]
+gem 'pg'
 gem 'puma', '>= 5.0'
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
